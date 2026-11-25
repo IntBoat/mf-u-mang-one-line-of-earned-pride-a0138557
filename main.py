@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
-"""One Line of Earned Pride (make.fun).
+"""One Line of Earned Pride — a make.fun one-line entry.
 
-Writes the entry -- One line: a quiet, earned moment of pride for someone in a scene --
-to /output/entry.txt, where the sealed scorer reads it.
+The program writes the entry text to /output/entry.txt, where the
+competition's sealed scorer reads it.
 """
 
-import os
+from pathlib import Path
 
-TEXT = "After eleven years of night shifts, she watched her daughter cross the graduation stage in the nurse's uniform she had once ironed for her — and finally let herself believe the tired years had added up to something."
+ENTRY = "After forty years of night shifts, my father finally watched his daughter graduate — and for once, he let himself be the one clapped for."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry text must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text)
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
